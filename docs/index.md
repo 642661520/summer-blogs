@@ -17,7 +17,7 @@ hero:
 features:
   - title: CSS
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: /docs/css/
+    link: /css/
   - title: HTML
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
   - title: JavaScript

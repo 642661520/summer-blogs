@@ -6,10 +6,7 @@ import matter from 'gray-matter';
  * @return {*}
  */
 const getFiles = (path: string): Array<{ text?: string; link?: string }> => {
-  const files = fg.sync(path);
-  console.log('====================================');
-  console.log(files);
-  console.log('====================================');
+  const files = fg.sync('docs/'+path);
   return files.reduce((pre: Array<{ text?: string; link?: string }>, file) => {
     const item = {
       text: file.replace(path, '').split('.')[0],
@@ -49,24 +46,13 @@ export const initSidebar = (
 ): any => {
   return menu.reduce(
     (pre, item) => {
-      pre[ item.path.replace('docs', '')] = [initSidebarItem(item)];
+      pre[ item.path] = [initSidebarItem(item)];
       return pre
     },
     {}
   );
 };
 
-const menu = [
-  {
-    path: 'docs/css/',
-    text: 'CSS',
-    navConfig: {
-      nav: undefined,
-      showNav: true,
-      showItem: true,
-    },
-  },
-];
 export const initNav = (menu: any[]) => {
   return menu.reduce((pre, { path, text, navConfig }) => {
     const { showNav, showItem, nav } = navConfig;
@@ -78,6 +64,7 @@ export const initNav = (menu: any[]) => {
         pre.push({
           text: item.text,
           items: showItem ? item.items : undefined,
+          link:showItem ? undefined : path
         });
       }
     }

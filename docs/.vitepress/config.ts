@@ -4,7 +4,7 @@ import { initSidebar, initNav } from '../../utils/index';
 import { homepage, name, description } from '../../package.json';
 const menu = [
   {
-    path: 'docs/css/',
+    path: 'css/',
     text: 'CSS',
     navConfig: {
       nav: undefined,
@@ -13,7 +13,7 @@ const menu = [
     },
   },
   {
-    path: 'docs/html/',
+    path: 'html/',
     text: 'HTML',
     navConfig: {
       nav: undefined,
