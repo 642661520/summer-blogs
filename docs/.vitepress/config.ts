@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 // https://vitepress.dev/reference/site-config
 import { initSidebar, initNav } from '../../utils/index';
-import { homepage, name, description,logo } from '../../package.json';
+import { homepage, name, description, logo } from '../../package.json';
 export default defineConfig({
   title: name,
   description,
@@ -12,12 +12,13 @@ export default defineConfig({
     sidebar: initSidebar(),
     socialLinks: [{ icon: 'github', link: homepage }],
     outlineTitle: '当前页',
+    search: {
+      provider: 'local',
+    },
   },
-  head: [
-    ['link', { rel:'icon',href:logo}]
-  ],
+  head: [['link', { rel: 'icon', href: logo }]],
   base: `/${name}/`,
   vite: {
-    plugins: []
-  }
+    plugins: [],
+  },
 });
