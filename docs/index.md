@@ -3,23 +3,29 @@
 layout: home
 
 hero:
-  name: "最终的夏天"
-  text: "的博客"
+  name: '最终的夏天'
+  text: '的博客'
   tagline: 记录一些知识点
+  image:
+    src: https://avatars.githubusercontent.com/u/35099538?s=200
+    alt: final summer
+
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: LayerVue
+      link: https://642661520.github.io/layer-vue/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: View on GitHub
+      link: https://github.com/642661520/summer-blogs#readme
 
 features:
-  - title: CSS
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: /css/
-  - title: HTML
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: HTML/CSS
+    details:
   - title: JavaScript
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details:
+  - title: 工具
+    details:
 ---
+
+<script setup lang="ts">
+</script>

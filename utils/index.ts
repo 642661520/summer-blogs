@@ -1,73 +1,82 @@
 import fg from 'fast-glob';
 import matter from 'gray-matter';
+import { DefaultTheme } from 'vitepress/types/default-theme';
 
-/** 获取文件
- * @param {(string|string[])} path
- * @return {*}
- */
-const getFiles = (path: string): Array<{ text?: string; link?: string }> => {
-  const files = fg.sync('docs/'+path);
-  return files.reduce((pre: Array<{ text?: string; link?: string }>, file) => {
-    const item = {
-      text: file.replace(path, '').split('.')[0],
-      link: file.replace('docs','').replace('/index.md','/').replace('.md', ''),
-    };
-    console.log(`item.link`, item.link);
-    const { data } = matter.read(file);
-    if (data.title) {
-      item.text = data.title;
+const ignores = ['**/components'];
+const initSidebarItem = (
+  path: string,
+  ignore: string[],
+  deep: boolean
+): DefaultTheme.SidebarItem[] => {
+  const directories = fg.sync(path + '/*', { onlyDirectories: true, ignore });
+  return directories.reduce((pre: DefaultTheme.SidebarItem[], directory) => {
+    const files = fg.sync(directory + '/*.md', { onlyFiles: true });
+    const items = [
+      ...initSidebarItem(directory, ignore, deep),
+      ...files.reduce((pre: DefaultTheme.SidebarItem[], file) => {
+        const link=file.replace('docs', '').replace('/index.md', '/').replace('.md', '')
+        const item = {
+          text:link.slice(link.lastIndexOf('/') + 1).replace(/[0-9]+./, ''),
+          link
+        };
+        const { data } = matter.read(file);
+        if (data.title) {
+          item.text = data.title;
+        }
+        pre.push(item);
+        return pre;
+      }, []),
+    ];
+    if (items.length > 0) {
+      const isLink = deep ? deep : items.some(v => v.link);
+      pre.push({
+        text: directory.slice(directory.lastIndexOf('/') + 1).replace(/[0-9]+./, ''),
+        items: isLink
+          ? items
+          : items.reduce((pre: DefaultTheme.SidebarItem[], item) => {
+              if (item.items) {
+                pre.push(...item.items);
+              }
+              return pre;
+            }, []),
+      });
     }
-    pre.push(item);
     return pre;
   }, []);
 };
-/** 初始化某个侧边栏
- * @param {{path:string,text:string}} {path,text}
- * @return {*}
- */
-const initSidebarItem = ({
-  path,
-  text,
-}: {
-  path: string;
-  text: string;
-}): { text: string; items: Array<{ text?: string; link?: string }> } => {
-  return {
-    text,
-    items: getFiles(path + '**/*.md'),
-  };
+
+export const initNav = (
+  path: string = 'docs',
+  ignore: string[] = ignores
+): DefaultTheme.NavItem[] => {
+  const directories = fg.sync(path + '/*', { onlyDirectories: true, ignore });
+  const nav = directories.reduce((pre: DefaultTheme.NavItem[], item) => {
+    const items = initSidebarItem(item, ignore, false) as DefaultTheme.NavItemWithLink[];
+    if (items.length > 0) {
+      pre.push({
+        text: item.replace(path + '/', '').replace(/[0-9]+./, ''),
+        items,
+      });
+    }
+
+    return pre;
+  }, []);
+  return nav;
 };
 
 export const initSidebar = (
-  menu: Array<{
-    path: string;
-    text: string;
-  }>
-): any => {
-  return menu.reduce(
-    (pre, item) => {
-      pre[ item.path] = [initSidebarItem(item)];
-      return pre
-    },
-    {}
-  );
-};
-
-export const initNav = (menu: any[]) => {
-  return menu.reduce((pre, { path, text, navConfig }) => {
-    const { showNav, showItem, nav } = navConfig;
-    if (showNav) {
-      if (nav) {
-        pre.push(nav);
-      } else {
-        const item = initSidebarItem({ path, text });
-        pre.push({
-          text: item.text,
-          items: showItem ? item.items : undefined,
-          link:showItem ? undefined : path
-        });
-      }
-    }
+  path: string = 'docs',
+  ignore: string[] = ignores
+): DefaultTheme.SidebarMulti => {
+  const directories = fg.sync(path + '/*', { onlyDirectories: true, ignore });
+  const sidebar = directories.reduce((pre, item) => {
+    pre[item.replace(path, '') + '/'] = [
+      {
+        text: item.replace(path + '/', '').replace(/[0-9]+./, ''),
+        items: initSidebarItem(item, ignore,true),
+      },
+    ];
     return pre;
-  }, []);
+  }, {});
+  return sidebar;
 };

@@ -3,12 +3,15 @@
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
+  "logo": "https://avatars.githubusercontent.com/u/35099538?s=200&v=4",
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
+    "naive-ui": "^2.34.3",
+    "sass": "^1.60.0",
     "vitepress": "^1.0.0-alpha.61"
   },
   "dependencies": {
@@ -26,6 +29,7 @@
     "jsonc-parser": "^3.2.0",
     "magic-string": "^0.25.9",
     "nanoid": "^3.3.4",
+    "ol": "^7.3.0",
     "path-parse": "^1.0.7",
     "picocolors": "^1.0.0",
     "postcss": "^8.4.21",
