@@ -26,6 +26,3 @@ features:
   - title: 工具
     details:
 ---
-
-<script setup lang="ts">
-</script>
