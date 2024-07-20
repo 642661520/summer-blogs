@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
 import matter from 'gray-matter';
-import { DefaultTheme } from 'vitepress/types/default-theme';
+import { DefaultTheme } from 'vitepress';
 
 const ignores = ['**/components'];
 const initSidebarItem = (
