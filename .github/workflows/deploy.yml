@@ -14,20 +14,33 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
+          version: 8
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: npm
-      - run: npm ci
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build
-        run: npm run docs:build
+        run: pnpm run docs:build
+
       - uses: actions/configure-pages@v2
+
       - uses: actions/upload-pages-artifact@v1
         with:
           path: docs/.vitepress/dist
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
