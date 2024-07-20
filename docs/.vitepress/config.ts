@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress';
 // https://vitepress.dev/reference/site-config
 import { initSidebar, initNav } from '../../utils/index';
 import { homepage, name, description, logo } from '../../package.json';
+import markdownItCodeView from '../../plugins/demoPreview';
 export default defineConfig({
   title: name,
   description,
@@ -20,5 +21,13 @@ export default defineConfig({
   base: `/${name}/`,
   vite: {
     plugins: [],
+  },
+  markdown: {
+    config(md) {
+      md.use(markdownItCodeView as any, {
+        componentName: 'CodeView',
+        glob: ['./components/**/*.vue'],
+      });
+    },
   },
 });

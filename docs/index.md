@@ -5,7 +5,7 @@ layout: home
 hero:
   name: '最终的夏天'
   text: '的博客'
-  tagline: 记录一些知识点
+  tagline: '记录学习笔记'
   image:
     src: https://avatars.githubusercontent.com/u/35099538?s=200
     alt: final summer
@@ -13,16 +13,22 @@ hero:
   actions:
     - theme: brand
       text: LayerVue
-      link: https://642661520.github.io/layer-vue/
+      link: https://layervue.github.io/LayerVue/
     - theme: alt
       text: View on GitHub
       link: https://github.com/642661520/summer-blogs#readme
 
 features:
-  - title: HTML/CSS
-    details:
-  - title: JavaScript
-    details:
-  - title: 工具
+  - title: THREE
+    link: /01.THREE/
+    icon:
+      src: https://threejs.org/files/favicon.ico
+    details: 3D 渲染引擎 Three.js 的学习笔记
+  - title: OpenLayers
+    link: /02.OpenLayers/
+    icon:
+      src: https://openlayers.org/theme/img/logo-dark.svg
+    details: 地图引擎 OpenLayers 的学习笔记
+  - title: 等待更新
     details:
 ---

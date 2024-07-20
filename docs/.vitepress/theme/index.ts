@@ -1,12 +1,15 @@
 import DefaultTheme from 'vitepress/theme';
-import { defineAsyncComponent } from 'vue';
-import './css/ol.css';
-export default {
-  extends: DefaultTheme,
+import { Theme } from 'vitepress';
+import { AsyncComponentLoader, defineAsyncComponent } from 'vue';
+import codeViewPlugin from '../../../plugins/vitepress-code-view-plugins';
+const themeOptions: Theme = {
+  Layout: DefaultTheme.Layout,
+  extends: codeViewPlugin,
   enhanceApp({ app }) {
-    const requireModules = import.meta.glob(
-      '../../components/global/**/*.vue'
-    ) as unknown as Promise<typeof import('*.vue')>;
+    const requireModules = import.meta.glob(['../../../components/**/*.vue']) as Record<
+      string,
+      AsyncComponentLoader
+    >;
     for (const [path, module] of Object.entries(requireModules)) {
       const initPath = path.replace('/index.vue', '.');
       const name = initPath.slice(initPath.lastIndexOf('/') + 1, initPath.lastIndexOf('.'));
@@ -14,3 +17,4 @@ export default {
     }
   },
 };
+export default themeOptions;
