@@ -94,6 +94,9 @@ function animate() {
 
   // 如果有相交的网格并且鼠标在画布内
   if (intersects.length > 0 && inDom.value) {
+    // 设置鼠标样式
+    dom.value && (dom.value.style.cursor = 'pointer');
+
     // 获取第一个相交的网格
     const intersect = intersects[0];
     // 如果选中的网格不是当前相交的网格
@@ -115,6 +118,8 @@ function animate() {
     selectedMesh.value?.material.color.set(originColor.value as number);
     // 清空选中网格
     selectedMesh.value = undefined;
+    // 恢复鼠标样式
+    dom.value && (dom.value.style.cursor = 'auto');
   }
 
   // 旋转立方体
