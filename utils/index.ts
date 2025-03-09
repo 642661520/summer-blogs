@@ -14,10 +14,10 @@ const initSidebarItem = (
     const items = [
       ...initSidebarItem(directory, ignore, deep),
       ...files.reduce((pre: DefaultTheme.SidebarItem[], file) => {
-        const link=file.replace('docs', '').replace('/index.md', '/').replace('.md', '')
+        const link = file.replace('docs', '').replace('/index.md', '/').replace('.md', '');
         const item = {
-          text:link.slice(link.lastIndexOf('/') + 1).replace(/[0-9]+./, ''),
-          link
+          text: link.slice(link.lastIndexOf('/') + 1).replace(/[0-9]+./, ''),
+          link,
         };
         const { data } = matter.read(file);
         if (data.title) {
@@ -73,7 +73,7 @@ export const initSidebar = (
     pre[item.replace(path, '') + '/'] = [
       {
         text: item.replace(path + '/', '').replace(/[0-9]+./, ''),
-        items: initSidebarItem(item, ignore,true),
+        items: initSidebarItem(item, ignore, true),
       },
     ];
     return pre;

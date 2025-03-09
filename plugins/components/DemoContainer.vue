@@ -6,7 +6,7 @@
   </div>
 </template>
 <style lang="scss">
-.demo {
-  margin-top: 10px;
-}
+  .demo {
+    margin-top: 10px;
+  }
 </style>

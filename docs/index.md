@@ -11,9 +11,9 @@ hero:
     alt: final summer
 
   actions:
-    - theme: brand
-      text: LayerVue
-      link: https://layervue.github.io/LayerVue/
+    # - theme: brand
+    #   text: LayerVue
+    #   link: https://layervue.github.io/LayerVue/
     - theme: alt
       text: View on GitHub
       link: https://github.com/642661520/summer-blogs#readme

@@ -40,7 +40,6 @@ const markdownItCodeView = (
 
         const description = m && m.length > 1 ? m[1] : '';
 
-
         try {
           const template = templates.find(v => v.name === component)?.template;
           return `<DemoContainer>
@@ -58,7 +57,6 @@ const markdownItCodeView = (
 };
 
 const getTemplates = (glob: string[] | string) => {
-
   //node
   const files = fg.sync(glob, { onlyFiles: true, ignore: ['**/node_modules'] });
   return files.map(file => {
