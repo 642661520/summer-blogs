@@ -37,7 +37,9 @@ jobs:
 
       - uses: actions/configure-pages@v3 # 更新到最新版本
 
-      - uses: actions/upload-pages-artifact@v3 # 已是最新版本
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist  # Update the path to the actual output directory
 
       - name: Deploy
         id: deployment
